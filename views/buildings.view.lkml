@@ -52,6 +52,8 @@ view: buildings {
     sql: ${TABLE}.state ;;
   }
   dimension: stratum {
+    label: "Estrato"
+    description: "Estrato del apto del cliente"
     type: number
     sql: ${TABLE}.stratum ;;
   }

@@ -68,6 +68,30 @@ view: transactions {
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.payment_date ;;
   }
+  parameter: date_granularity {
+    type: unquoted
+    allowed_value: {
+      label: "Year"
+      value: "year"
+    }
+    allowed_value: {
+      label: "Month"
+      value: "month"
+    }
+    allowed_value: {
+      label: "Week"
+      value: "week"
+    }
+  }
+  dimension: date {
+    sql: {% if date_granularity._parameter_value == 'year' %}
+          ${payment_year}
+        {% elsif date_granularity._parameter_value == 'month' %}
+          ${payment_month}
+        {% elsif date_granularity._parameter_value == 'week' %}
+          ${payment_week}
+        {% endif %} ;;
+  }
   dimension: payment_value {
     type: number
     sql: ${TABLE}.payment_value ;;
